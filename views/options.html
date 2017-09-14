@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NJIT Crummy UI Helper Options</title>
+
+    <link href="../assets/bootstrap.min.css" rel="stylesheet">
+
+    <script src="../assets/jquery-3.1.1.js"></script>
+    <script src="../assets/bootstrap.min.js"></script>
+    <script src="../assets/angular.min.js"></script>
+    <script src="../scripts/options.js"></script>
+    <style>
+        .tooltip-inner {
+            max-width: 400px;
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid" ng-controller="GroupController" ng-app="crummyUI" ng-cloak>
+    <h2 style="text-align:center;">NJIT "Crummy UI" Helper</h2>
+    <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#info-modal" style="margin-bottom:20px;">
+        Info <span class="glyphicon glyphicon-info-sign"></span>
+    </button>
+    <div class="modal fade" id="info-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel" style="display: inline-block;">NJIT "Crummy-UI" Helpful Info</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul style="list-style: none;">
+                        <li ng-repeat="i in infos">
+                            <h4>{{i.title}}</h4>
+                            <ul style="list-style: square;">
+                                <li><p>Crumminess:</p><p style="margin-left:30px;">{{i.crummyInfo}}</p></li>
+                                <li><p>Solution:</p><p style="margin-left:30px;">{{i.solutionInfo}}</p></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-8">
+            <form id="form-dw-classes" method="post">
+                <textarea id="class-textarea" style="width:100%;height:200px;"></textarea>
+                <br>
+                <label for="text-classname">Name: <input type="text" id="text-classname" name="ClassName" autocomplete="off"/></label>
+                <button id="set-classes-btn" class="btn btn-primary" ng-click="addNewClassGroup($event)">Add Class Group</button>
+                <button type="button" class="btn btn-default btn-sm"
+                        data-toggle="tooltip" data-placement="right" data-html="true"
+                        title="Enter course subject followed by a space followed by course number.<br>Each course on a new line." style="display: inline-block;">
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div ng-repeat="group in classGroups track by $index">
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" style="padding:10px;">
+                <div style="text-align:center;border:1px solid lightgray; border-radius:5px;padding-bottom:15px;">
+                    <h4 style="border-bottom: 1px solid lightgray;padding-bottom:5px;">{{ group.name }}</h4>
+                    <ul>
+                        <li class="li-class-item" style="text-align:left;" ng-repeat="cls in group.classes">
+                            {{ cls.subject }} {{ cls.number }}
+                        </li>
+                    </ul>
+                    <button class="btn-delete-group btn btn-default" ng-click="deleteGroup($event, group)">Remove</button>
+                    <button ng-if="group.isActive" class="btn btn-success">Active</button>
+                    <button ng-if="!group.isActive" class="btn btn-default" ng-click="setGroupActive($event, group)">Set Active</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="classGroups.length === 0">
+            <p>No Groups</p>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
