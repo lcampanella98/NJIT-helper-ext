@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ResLife Movies</title>
+    <link href="../assets/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/jquery-ui.min.css" rel="stylesheet">
+    <script src="../assets/jquery-3.1.1.js"></script>
+    <script src="../assets/jquery-ui.min.js"></script>
+    <script src="../assets/bootstrap.min.js"></script>
+    <script src="../assets/angular.min.js"></script>
+    <script src="../assets/spin.min.js"></script>
+    <script src="../scripts/movies.js"></script>
+    <style>
+        a.link-movie {
+            background-color: white;
+            text-decoration: none;
+            color:black;
+        }
+        a.link-movie:hover {
+            background-color:#e5efff;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid" ng-controller="MovieController" ng-app="movies" ng-cloak>
+    <h1 style="text-align:center">NJIT ResLife Movies By Rating</h1>
+    <h5>Rating Threshold: </h5>
+    <div class="row">
+        <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+            <div id="rating-slider" style="width: calc(100% - 65px);display:inline-block"></div><span id="span-cur-rating" style="margin-left: 10px;width:55px;">{{ minRating.toFixed(1) }}/10</span><br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-5 col-md-3 col-lg-3">
+            <h5 style="display: inline-block">Sort By: </h5>
+            <div id="btn-group-sort" class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary active" ng-click="useSortBy('NAME')">
+                    <input type="radio" name="sort-options" id="sort-option-name" autocomplete="off" checked> Name
+                </label>
+                <label class="btn btn-primary" ng-click="useSortBy('RATING')">
+                    <input type="radio" name="sort-options" id="sort-option-rating" autocomplete="off"> Rating
+                </label>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-3 col-lg-3">
+            <!--style="display:inline-block;width:auto;" -->
+            <input class="form-control" ng-model="searchString" type="text" id="option-search" placeholder="Filter By Name" autocomplete="off"/>
+        </div>
+    </div>
+    <div id="load-progress-container" style="position: relative;margin-top:10px;" ng-if="movieStackPointer > 0">
+        <div id="load-progress-spinner"></div>
+        <span style="left:30px;top:50%;position:relative"> Loading new movies: {{ movieRequests.length - movieStackPointer }} / {{ movieRequests.length }} (This may take a while the first time)</span>
+    </div>
+    <div class="category-container" ng-repeat="cat in catsToUse track by $index">
+
+        <h3>{{ cat.name }}:</h3>
+        <div class="row">
+            <div ng-repeat="mov in cat.movies | filter:shouldDisplayMovie track by $index">
+                <div class="clearfix visible-sm-block" ng-if="$index % 2 == 0"></div>
+                <div class="clearfix visible-md-block visible-lg-block" ng-if="$index % 4 == 0"></div>
+                <div class="mov-div col-xs-12 col-sm-6 col-md-3 col-lg-3" style="padding: 6px;">
+                    <a ng-click="onMovieClick($event)" class="link-movie" href="#">
+                        <div style="border: 1px solid lightgray;border-radius:5px;background-color:inherit;">
+                            <div style="margin-left: 6px;display: inline-block; width: calc(100% - 60px)"><h5 class="movie-name">{{ mov.name }}</h5></div>
+                            <div style="margin-right: 6px;float:right;"><h4 style="font-weight:bold;" ng-style="{color:getRatingColor(mov)}">{{ getRatingText(mov) }}</h4></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <span ng-if="!catHasValidMovie(cat)">No Results</span>
+        <!--<ul>-->
+            <!--<li ng-repeat="mov in cat.movies | filter:shouldDisplayMovie">{{ mov.name }} - {{ mov.rating.toFixed(1) }}</li>-->
+        <!--</ul>-->
+    </div>
+</div>
+</body>
+</html>

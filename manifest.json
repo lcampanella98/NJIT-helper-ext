@@ -1,12 +1,12 @@
 {
   "name": "NJIT Crummy UI Helper",
-  "version": "2.1",
+  "version": "3.1",
   "description": "Hacks NJIT UI for more functionality",
   "background": {
     "scripts": ["background.js"]
   },
   "browser_action": {
-    "default_title": "Input What-If",
+    "default_title": "NJIT UI Actions",
     "default_popup": "views/popup.html"
   },
   "manifest_version": 2,
@@ -15,8 +15,10 @@
     "background",
     "storage",
     "activeTab",
+    "tabs",
     "https://dwapppr1.njit.edu/*",
-    "http://myhub.njit.edu/*"
+    "http://myhub.njit.edu/*",
+    "https://reslifecinema-njit-edu.swankmp.net/*"
   ],
   "icons": {
     "16": "icons/dw_icon_16.png",

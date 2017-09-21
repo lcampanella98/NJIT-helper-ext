@@ -108,6 +108,12 @@ angular.module('crummyUI', []).controller('GroupController', ['$scope', function
         'When you go to "View Registration Information" in the new registration system, the calendar is so small you can barely see it!',
         'In the action button, select "Toggle Schedule Fullscreen" to expand the schedule window to fullscreen.'
     ));
+    $scope.infos.push($scope.getNewInfoObj(
+        'ResLife Movies',
+        'There are some good movies on the ResLifeMovies site but no way to see or filter by their IMDB ratings.',
+        'Go to reslifemovies.njit.edu, click the action button and enter a rating you want to filter by in the ' +
+        'ResLifeMovies option. Then click the option and the filtering page will load.'
+    ));
 }]);
 
 $('form#form-dw-classes').submit(function(event) {
