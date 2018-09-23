@@ -25,5 +25,6 @@
     "32": "icons/dw_icon_32.png",
     "48": "icons/dw_icon_48.png",
     "128": "icons/dw_icon_128.png"
-  }
+  },
+  "short_name": "NJIT UI"
 }
