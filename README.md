@@ -8,3 +8,4 @@ A Chrome extension for NJIT Students!
 **A class schedule that you can view fullscreen** on "View Registration Information" page
 
 **A quick way to see your future degree progress in DegreeWorks** based on classes you want to take. Create lists and automatically enter them through the action button. 
+
